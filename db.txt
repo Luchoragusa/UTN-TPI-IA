@@ -35,7 +35,7 @@ partidos_hoy(gralcaballero, resistencia, 1400, encarnacion).
 partidos_hoy(coquimbounido, ohiggins, 1400, sausalito).
 
 
-liga_es_de(copadelaliga, argentina)..
+liga_es_de(copadelaliga, argentina).
 liga_es_de(primeranacional, argentina).
 
 liga_es_de(brasileirao, brasil).
@@ -105,7 +105,7 @@ campeon_liga(river, copadelaliga, 2023).
 campeon_liga(boca, copadelaliga, 2022).
 
 campeon_liga(altmineiro, brasileirao, 2021).
-campeon_liga(palmeiras, brasileirao,).
+campeon_liga(palmeiras, brasileirao, 2022).
 
 campeon_liga(libertad, copadeprimera, 2023).
 campeon_liga(olimpia, copadeprimera, 2022).
