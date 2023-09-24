@@ -9,6 +9,8 @@ abrir_base:-
     retractall(equipo_es_de(_,_)), 
     retractall(campeon_liga(_,_,_)),
     consult("db.txt").
+    
+guardar_base:- tell('db.txt'), listing(campeon_liga), told.
 
 menu:-
     abrir_base, nl,
@@ -23,6 +25,13 @@ menu:-
     menu.
 menu.
 
+
+menu_si_no(Opcion):- 
+    nl,
+    write("1 - Si"),nl,
+    write("2 - No"),nl,
+    read(Opcion),
+    Opcion\=0.
 
 opcion(1):- 
     write("Opciones de filtrado"),nl,
@@ -45,9 +54,7 @@ opcion(1):-
                 write("Ingrese el nombre de la liga: "),
                 read(Liga),
                 write("Quiere conecer ademas el estadio y el horario en el que se juega?"),nl,
-                write("1 - Si"),nl,
-                write("2 - No"),nl,
-                read(Opcion),
+                menu_si_no(Opcion),
                 write("Los partidos de la liga "), write(Liga), write(" son: "), nl,
                 obtenerPartidosLiga(Liga, Opcion).
 
@@ -91,9 +98,7 @@ opcion(1):-
                 write("Ingrese el nombre del pais: "),
                 read(Pais),
                 write("Quiere conecer ademas el estadio y el horario en el que se juega?"),nl,
-                write("1 - Si"),nl,
-                write("2 - No"),nl,
-                read(Opcion),
+                menu_si_no(Opcion),
                 write("Los partidos del pais "), write(Pais), write(" son: "), nl,
                 obtenerPartidosPais(Pais, Opcion).
 
@@ -133,7 +138,24 @@ opcion(2):-
     write("Ingrese el nombre de la liga: "),
     read(Liga),
     write("Los ultimos campeones de la liga "),write(Liga),write(" son: "), nl,nl,
-    mostrar_campeon_liga(Liga).
+    mostrar_campeon_liga(Liga),
+    write("Desea agregar algun otro equipo campeon para esta liga ?"),
+    menu_si_no(Opcion),
+    agregar_campeon(Opcion, Liga).
 
-opcion(3):- write("Opcion 3").
+    agregar_campeon(1, Liga):- 
+        write("Ingrese el nombre del equipo: "),
+        read(Equipo),
+        write("Ingrese el anio en el que salio campeon: "),
+        read(Anio),
+        assert(campeon_liga(Equipo, Liga, Anio)),
+        guardar_base,
+        write("Desea agregar algun otro equipo campeon para esta liga ?"),
+        menu_si_no(Opcion),
+        agregar_campeon(Opcion, Liga).
+    agregar_campeon(2, _):- write("Gracias por responder!"),nl.
+
+
+
+
             
