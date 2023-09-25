@@ -10,7 +10,12 @@ abrir_base:-
     retractall(campeon_liga(_,_,_)),
     consult("db.txt").
     
-guardar_base:- tell('db.txt'), listing(campeon_liga), told.
+guardar_base:- 
+    tell('db.txt'), 
+    listing(partidos_hoy),
+    listing(equipo_es_de),
+    listing(campeon_liga),
+    told.
 
 menu:-
     abrir_base, nl,

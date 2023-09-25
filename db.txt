@@ -1,20 +1,115 @@
-:- dynamic campeon_liga/3.
+:- dynamic(partidos_hoy/4).
+
+:- dynamic(equipo_es_de/2).
+:- dynamic(campeon_liga/3).
+
+
+partidos_hoy(belgrano, platense, 1330, villagra).
+partidos_hoy(union, godoycruz, 1330, quincedeabril).
+partidos_hoy(argentinos, talleres, 1400, maradona).
+partidos_hoy(riverplate, atltucuman, 1400, monumentalmas).
+
+partidos_hoy(atlrafaela, indrivadavia, 1500, nuevomonumental).
+partidos_hoy(almagro, sanmartinsj, 1500, tresdefebrero).
+
+partidos_hoy(vascodagama, coritiba, 1100, castelao).
+partidos_hoy(paranaense, internacional, 1100, nacional).
+partidos_hoy(gremio, palmeiras, 1200, mineirao).
+partidos_hoy(corinthians, botafogo, 1200, maracana).
+
+partidos_hoy(deppereira, umagdalena, 1330, jaraguay).
+partidos_hoy(millonarios, atlhuila, 1330, metropolitano).
+
+partidos_hoy(queretaro, america, 1600, azteca).
+partidos_hoy(juarez, atlas, 1600, olimpico).
+
+partidos_hoy(atlantaUnited, cincinnati, 2100, columbia).
+partidos_hoy(miami, toronto, 2100, vancouver ).
+
+partidos_hoy(salernitana, frosinone, 1500, roma).
+partidos_hoy(lecce, genoa, 1600, meazza).
+
+partidos_hoy(cerroportenio, guairenia, 1400, ciudaddeleste).
+partidos_hoy(gralcaballero, resistencia, 1400, encarnacion).
+
+partidos_hoy(coquimbounido, ohiggins, 1400, sausalito).
+
+
+equipo_es_de(coquimbounido, liga_es_de(planvital, chile)).
+equipo_es_de(ohiggins, liga_es_de(planvital, chile)).
+
+equipo_es_de(gralcaballero, liga_es_de(copadeprimera, paraguay)).
+equipo_es_de(resistencia, liga_es_de(copadeprimera, paraguay)).
+equipo_es_de(cerroportenio, liga_es_de(copadeprimera, paraguay)).
+equipo_es_de(guairenia, liga_es_de(copadeprimera, paraguay)).
+
+equipo_es_de(salernitana, liga_es_de(seriea, italia)).
+equipo_es_de(frosinone, liga_es_de(seriea, italia)).
+equipo_es_de(lecce, liga_es_de(seriea, italia)).
+equipo_es_de(genoa, liga_es_de(seriea, italia)).
+
+equipo_es_de(atlantaUnited, liga_es_de(mls, estadosunidos)).
+equipo_es_de(cincinnati, liga_es_de(mls, estadosunidos)).
+equipo_es_de(toronto, liga_es_de(mls, estadosunidos)).
+equipo_es_de(interMiami, liga_es_de(mls, estadosunidos)).
+
+equipo_es_de(queretaro, liga_es_de(ligamx, mexico)).
+equipo_es_de(america, liga_es_de(ligamx, mexico)).
+equipo_es_de(juarez, liga_es_de(ligamx, mexico)).
+equipo_es_de(atlas, liga_es_de(ligamx, mexico)).
+
+equipo_es_de(deppereira, liga_es_de(betplay, colombia)).
+equipo_es_de(umagdalena, liga_es_de(betplay, colombia)).
+equipo_es_de(millonarios, liga_es_de(betplay, colombia)).
+equipo_es_de(atlhuila, liga_es_de(betplay, colombia)).
+
+equipo_es_de(vascodagama, liga_es_de(brasileirao, brasil)).
+equipo_es_de(coritiba, liga_es_de(brasileirao, brasil)).
+equipo_es_de(paranaense, liga_es_de(brasileirao, brasil)).
+equipo_es_de(internacional, liga_es_de(brasileirao, brasil)).
+equipo_es_de(gremio, liga_es_de(brasileirao, brasil)).
+equipo_es_de(palmeiras, liga_es_de(brasileirao, brasil)).
+equipo_es_de(corinthians, liga_es_de(brasileirao, brasil)).
+equipo_es_de(botafogo, liga_es_de(brasileirao, brasil)).
+
+equipo_es_de(belgrano, liga_es_de(copadelaliga, argentina)).
+equipo_es_de(platense, liga_es_de(copadelaliga, argentina)).
+equipo_es_de(union, liga_es_de(copadelaliga, argentina)).
+equipo_es_de(argentinos, liga_es_de(copadelaliga, argentina)).
+equipo_es_de(talleres, liga_es_de(copadelaliga, argentina)).
+equipo_es_de(riverplate, liga_es_de(copadelaliga, argentina)).
+equipo_es_de(atltucuman, liga_es_de(copadelaliga, argentina)).
+equipo_es_de(godoycruz, liga_es_de(copadelaliga, argentina)).
+
+equipo_es_de(indrivadavia, liga_es_de(primeranacional, argentina)).
+equipo_es_de(atlrafaela, liga_es_de(primeranacional, argentina)).
+equipo_es_de(almagro, liga_es_de(primeranacional, argentina)).
+equipo_es_de(sanmartinsj, liga_es_de(primeranacional, argentina)).
+
 
 campeon_liga(belgrano, primeranacional, 2022).
 campeon_liga(tigre, primeranacional, 2021).
+
 campeon_liga(river, copadelaliga, 2023).
 campeon_liga(boca, copadelaliga, 2022).
+
 campeon_liga(altmineiro, brasileirao, 2021).
 campeon_liga(palmeiras, brasileirao, 2022).
+
 campeon_liga(libertad, copadeprimera, 2023).
 campeon_liga(olimpia, copadeprimera, 2022).
+
 campeon_liga(millonarios, betplay, 2023).
 campeon_liga(deppereira, betplay, 2022).
+
+campeon_liga(colocolo, planvital, 2022).
+campeon_liga(ucatolica, planvital, 2021).
+
 campeon_liga(tigres, ligamx, 2023).
 campeon_liga(pachuca, ligamx, 2022).
+
 campeon_liga(losangeles, mls, 2022).
 campeon_liga(newyorkfc, mls, 2021).
+
 campeon_liga(napoli, seriea, 2023).
 campeon_liga(milan, seriea, 2022).
-campeon_liga(audax, planvital, 2020).
-
