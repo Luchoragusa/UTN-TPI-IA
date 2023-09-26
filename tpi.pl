@@ -149,6 +149,7 @@ opcion(2):-
     agregar_campeon(Opcion, Liga).
 
     agregar_campeon(1, Liga):- 
+        abrir_base,
         write("Ingrese el nombre del equipo: "),
         read(Equipo),
         write("Ingrese el anio en el que salio campeon: "),
