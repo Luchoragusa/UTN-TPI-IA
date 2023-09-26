@@ -4,9 +4,9 @@
 :- discontiguous filtrar/1.
 :- discontiguous opcion/1.
 
-abrir_base:- 
-    retractall(partidos_hoy(_,_,_,_)), 
-    retractall(equipo_es_de(_,_)), 
+abrir_base:-
+    retractall(partidos_hoy(_,_,_,_)),
+    retractall(equipo_es_de(_,_)),
     retractall(campeon_liga(_,_,_)),
     consult("db.txt").
     
@@ -25,24 +25,32 @@ menu:-
     write("Opcion 0 - Salir"),
     nl,
     read(Opcion),
+    nl,
     Opcion\=0,
     opcion(Opcion),
     menu.
 menu.
 
 
-menu_si_no(Opcion):- 
+menu_si_no(Opcion):-
     nl,
     write("1 - Si"),nl,
     write("2 - No"),nl,
-    read(Opcion),
-    Opcion\=0.
+    read(OpcionIng),
+    validar_opcion(OpcionIng, Opcion).
+validar_opcion(1, 1).
+validar_opcion(2, 2).
+validar_opcion(_, Opcion) :-
+    write("Opción no válida. Por favor, seleccione 1 o 2."), nl,
+    menu_si_no(Opcion).
 
-opcion(1):- 
+
+opcion(1):-
     write("Opciones de filtrado"),nl,
     write("1 - Filtrar por liga"),nl,
-    write("2 - Filtrar por pais"),nl,  
+    write("2 - Filtrar por pais"),nl,
     read(Opcion),
+    nl,
     filtrar(Opcion).
 
     mostrarLigas(LigasMostrados):-
@@ -51,57 +59,58 @@ opcion(1):-
         write("= "), write(Liga),nl,
         retract(equipo_es_de(_, liga_es_de(Liga, _))),
         mostrarLigas([Liga|LigasMostrados]).
-    mostrarLigas(_):- write("Fin de la lista de ligas"),nl.
+    mostrarLigas(_):- nl,nl.
 
-    filtrar(1):-write("Las ligas cargadas en el sistema son: "),nl, 
-                mostrarLigas([]),
+    filtrar(1):-write("Las ligas cargadas en el sistema son: "),nl,
                 abrir_base,
+                mostrarLigas([]),
                 write("Ingrese el nombre de la liga: "),
-                read(Liga),
+                read(Liga),nl,
+                abrir_base,
+                verificar_liga(Liga),
                 write("Quiere conecer ademas el estadio y el horario en el que se juega?"),nl,
-                menu_si_no(Opcion),
+                menu_si_no(Opcion), nl,
                 write("Los partidos de la liga "), write(Liga), write(" son: "), nl,
                 obtenerPartidosLiga(Liga, Opcion).
+    verificar_liga(Liga):-
+        campeon_liga(_,Liga,_).
+    verificar_liga(_):-
+        write("La Liga ingresada no existe"),nl,fail.
 
-    obtenerPartidosLiga(Liga, Opcion):- 
+    obtenerPartidosLiga(Liga, Opcion):-
         equipo_es_de(Equipo1, liga_es_de(Liga, Pais)),
         equipo_es_de(Equipo2, liga_es_de(Liga, Pais)),
         Equipo1 \= Equipo2,
-        partidos_hoy(Equipo1,Equipo2,Hora,Estadio), 
+        partidos_hoy(Equipo1,Equipo2,Hora,Estadio),
         write("=> "), write(Equipo1),write(" vs "),write(Equipo2), nl,
-        retract(partidos_hoy(Equipo1,Equipo2,Hora,Estadio)), 
+        retract(partidos_hoy(Equipo1,Equipo2,Hora,Estadio)),
         mostrar_hora_estadio(Hora, Estadio, Opcion),
         obtenerPartidosLiga(Liga, Opcion).
-    obtenerPartidosLiga(_, _):- write("Fin de la lista de partidos"),nl.
+    obtenerPartidosLiga(_, _):- nl.
 
-    mostrar_hora_estadio(Hora, Estadio, 1):- 
+    mostrar_hora_estadio(Hora, Estadio, 1):-
         write("= "), write("El horario del partido es: "), write(Hora), nl,
         write("= "), write("El estadio del partido es: "), write(Estadio), nl.
-
-    %TODO --> campora
-    /*
-        ver la forma de hacer que no vuelva a procesar todo de nuevo, y que guarda en una lista el par de equipos
-        para mostrar horario y estadio
-        
-        write("Los equipos son: "), mostrar(Equipos).
-        mostrar([H|T]):- write(H), write(' '), mostrar(T).
-        mostrar([]).
-        obtenerPartidosLiga(Liga, [Equipo1, Equipo2|Equipos]).
-    */ 
-
-    mostrarPaises(PaisesMostrados):- 
+    mostrarPaises(PaisesMostrados):-
         equipo_es_de(_,liga_es_de(_, Pais)),
         \+ member(Pais, PaisesMostrados), % Verificar si el país ya ha sido mostrado
         write("= "), write(Pais),nl,
         retract(equipo_es_de(_,liga_es_de(_, Pais))),
         mostrarPaises([Pais|PaisesMostrados]).
-    mostrarPaises(_):- write("Fin de la lista de paises"),nl.
+    mostrarPaises(_):- nl.
+
+    verificar_pais(Pais):-
+        equipo_es_de(_,liga_es_de(_,Pais)).
+    verificar_pais(_):-
+        nl,write("El Pais ingresado no existe"),nl,fail.
+
 
     filtrar(2):- write("Los paises cargados en el sistema son: "),nl,
                 mostrarPaises([]),
                 abrir_base,
                 write("Ingrese el nombre del pais: "),
                 read(Pais),
+                verificar_pais(Pais),
                 write("Quiere conecer ademas el estadio y el horario en el que se juega?"),nl,
                 menu_si_no(Opcion),
                 write("Los partidos del pais "), write(Pais), write(" son: "), nl,
@@ -116,7 +125,7 @@ opcion(1):-
         retract(partidos_hoy(Equipo1,Equipo2,Hora,Estadio)),
         mostrar_hora_estadio(Hora, Estadio, Opcion),
         obtenerPartidosPais(Pais, Opcion).
-    obtenerPartidosPais(_,_):- write("Fin de la lista de partidos"),nl.
+    obtenerPartidosPais(_,_):- nl.
 
     mostrar_ligas_pais(Pais, LigasMostradas):-
         equipo_es_de(_,liga_es_de(Liga, Pais)),
@@ -125,30 +134,38 @@ opcion(1):-
         retract(equipo_es_de(_,liga_es_de(Liga, Pais))),
         mostrar_ligas_pais(Pais, [Liga|LigasMostradas]).
     mostrar_ligas_pais(_, _).
-    
-    mostrar_campeon_liga(Liga):- 
+
+    mostrar_campeon_liga(Liga):-
         campeon_liga(Equipo, Liga, Anio),
         write("= "), write(Equipo), write(" - "), write(Anio),nl,
         retract(campeon_liga(Equipo, Liga, Anio)),
         mostrar_campeon_liga(Liga).
-    mostrar_campeon_liga(_):- write("Fin de la lista de campeones"),nl.
+    mostrar_campeon_liga(_):-  nl.
 
-opcion(2):- 
+    filtrar(_):-
+        write("Opción no válida. Por favor, seleccione 1 o 2."),
+        nl,nl,
+        opcion(1).
+opcion(2):-
     write("Los paises cargados en el sistema son: "),nl,
     mostrarPaises([]),
+    abrir_base,
     write("Ingrese el nombre del pais: "),
     read(Pais),
+    verificar_pais(Pais),
     write("Las ligas pertenecientes a ese pais son: "),nl,
     mostrar_ligas_pais(Pais, []),
     write("Ingrese el nombre de la liga: "),
     read(Liga),
+    abrir_base,
+    verificar_liga_pais(Liga,Pais),
     write("Los ultimos campeones de la liga "),write(Liga),write(" son: "), nl,nl,
     mostrar_campeon_liga(Liga),
     write("Desea agregar algun otro equipo campeon para esta liga ?"),
     menu_si_no(Opcion),
     agregar_campeon(Opcion, Liga).
 
-    agregar_campeon(1, Liga):- 
+    agregar_campeon(1, Liga):-
         abrir_base,
         write("Ingrese el nombre del equipo: "),
         read(Equipo),
@@ -161,7 +178,8 @@ opcion(2):-
         agregar_campeon(Opcion, Liga).
     agregar_campeon(2, _):- write("Gracias por responder!"),nl.
 
-
-
-
-            
+    verificar_liga_pais(Liga,Pais):-
+        equipo_es_de(_,liga_es_de(Liga,Pais)).
+    verificar_liga_pais(_,_):-
+        write("La Liga ingresada no existe en ese Pais"),nl,fail.
+opcion(_):-write("Opción no válida. Por favor, seleccione una opción válida."), nl.
