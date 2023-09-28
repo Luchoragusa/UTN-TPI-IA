@@ -1,26 +1,26 @@
-:- dynamic partidos_hoy/4.
+:- dynamic partidos_hoy/5.
 
-partidos_hoy(belgrano, platense, 1330, villagra).
-partidos_hoy(union, godoycruz, 1330, quincedeabril).
-partidos_hoy(argentinos, talleres, 1400, maradona).
-partidos_hoy(riverplate, atltucuman, 1400, monumentalmas).
-partidos_hoy(atlrafaela, indrivadavia, 1500, nuevomonumental).
-partidos_hoy(almagro, sanmartinsj, 1500, tresdefebrero).
-partidos_hoy(vascodagama, coritiba, 1100, castelao).
-partidos_hoy(paranaense, internacional, 1100, nacional).
-partidos_hoy(gremio, palmeiras, 1200, mineirao).
-partidos_hoy(corinthians, botafogo, 1200, maracana).
-partidos_hoy(deppereira, umagdalena, 1330, jaraguay).
-partidos_hoy(millonarios, atlhuila, 1330, metropolitano).
-partidos_hoy(queretaro, america, 1600, azteca).
-partidos_hoy(juarez, atlas, 1600, olimpico).
-partidos_hoy(atlantaUnited, cincinnati, 2100, columbia).
-partidos_hoy(miami, toronto, 2100, vancouver).
-partidos_hoy(salernitana, frosinone, 1500, roma).
-partidos_hoy(lecce, genoa, 1600, meazza).
-partidos_hoy(cerroportenio, guairenia, 1400, ciudaddeleste).
-partidos_hoy(gralcaballero, resistencia, 1400, encarnacion).
-partidos_hoy(coquimbounido, ohiggins, 1400, sausalito).
+partidos_hoy(espn,belgrano, platense, 1330, villagra).
+partidos_hoy(espn,union, godoycruz, 1330, quincedeabril).
+partidos_hoy(espn,argentinos, talleres, 1400, maradona).
+partidos_hoy(espn,riverplate, atltucuman, 1400, monumentalmas).
+partidos_hoy(espn,atlrafaela, indrivadavia, 1500, nuevomonumental).
+partidos_hoy(espn,almagro, sanmartinsj, 1500, tresdefebrero).
+partidos_hoy(star+,vascodagama, coritiba, 1100, castelao).
+partidos_hoy(star+,paranaense, internacional, 1100, nacional).
+partidos_hoy(star+,gremio, palmeiras, 1200, mineirao).
+partidos_hoy(star+,corinthians, botafogo, 1200, maracana).
+partidos_hoy(star+,deppereira, umagdalena, 1330, jaraguay).
+partidos_hoy(star+,millonarios, atlhuila, 1330, metropolitano).
+partidos_hoy(espn,queretaro, america, 1600, azteca).
+partidos_hoy(espn,juarez, atlas, 1600, olimpico).
+partidos_hoy(espn,atlantaUnited, cincinnati, 2100, columbia).
+partidos_hoy(espn,miami, toronto, 2100, vancouver).
+partidos_hoy(espn,salernitana, frosinone, 1500, roma).
+partidos_hoy(star+,lecce, genoa, 1600, meazza).
+partidos_hoy(star+,cerroportenio, guairenia, 1400, ciudaddeleste).
+partidos_hoy(star+,gralcaballero, resistencia, 1400, encarnacion).
+partidos_hoy(star+,coquimbounido, ohiggins, 1400, sausalito).
 
 :- dynamic equipo_es_de/2.
 
@@ -88,3 +88,5 @@ campeon_liga(newyorkfc, mls, 2021).
 campeon_liga(napoli, seriea, 2023).
 campeon_liga(milan, seriea, 2022).
 campeon_liga(napoli, seriea, 2021).
+campeon_liga(river, copadelaliga, 2021).
+
