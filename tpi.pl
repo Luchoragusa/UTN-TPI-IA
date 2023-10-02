@@ -6,10 +6,10 @@ abrir_base:-
     retractall(partidos_hoy(_,_,_,_,_)),
     retractall(equipo_es_de(_,_)),
     retractall(campeon_liga(_,_,_)),
-    consult('C:/Users/crist/Documents/Prolog/TP3/db.txt').
+    consult('db.txt').
 
 guardar_base:-
-    tell('C:/Users/crist/Documents/prolog/TP3/db.txt'),
+    tell('db.txt'),
     listing(partidos_hoy),
     listing(equipo_es_de),
     listing(campeon_liga),
@@ -28,7 +28,7 @@ inicio:-
     nl,write("Gracias por usar el sistema!"),nl.
 
 inicio_ver_partidos(Nombre):-
-    nl,write("Hola "),write(Nombre),write("! Te interesa ver partidos hoy?"),nl,
+    nl,write("Hola "),write(Nombre),write("! Te interesa ver partidos hoy? [si/no]"),nl,
     read(Opcion),
     Opcion\='no',
     validar_opcion(Opcion).
@@ -52,7 +52,7 @@ validar_pais(_,PaisDevuelto):-
     inicio_pais(PaisDevuelto).
 
 inicio_ligas(Pais,Liga):-
-    nl,write("Conoces el nombre de las ligas del pais "), write(Pais), write("?"),nl,
+    nl,write("Conoces el nombre de las ligas del pais "), write(Pais), write("? [si/no]"),nl,
     read(OpcionLigas),nl,
     abrir_base,
     validar_opcion_ligas(OpcionLigas,Pais),
@@ -66,7 +66,7 @@ validar_opcion_ligas('no',Pais):-
     write("Las ligas de "),write(Pais),write(" son:"),nl,
     mostrar_ligas_pais(Pais, []).
 validar_opcion_ligas(_,Pais):-
-    nl,write("No pude entenderte, Conoces el nombre de las ligas de "),write(Pais), write("? (si/no)"),nl,
+    nl,write("No pude entenderte, conoces el nombre de las ligas de "),write(Pais), write("? (si/no)"),nl,
     read(OpcionLigas),
     validar_opcion_ligas(OpcionLigas,Pais).
 
@@ -79,7 +79,7 @@ mostrar_ligas_pais(Pais, LigasMostradas):-
 mostrar_ligas_pais(_, _).
 
 validar_liga_pais(Liga,Pais):- equipo_es_de(_,liga_es_de(Liga,Pais)).
-validar_liga_pais(_,_):- nl,write("La Liga ingresada no existe en ese Pais"),nl,fail.
+validar_liga_pais(_,_):- nl,write("La liga que ingresaste no existe en ese pais."),nl,fail.
 
 inicio_streamingg(Streaming,Liga,HayPartidos):-
     nl,write("Que servicio de streaming tenes contratado?"),nl,
@@ -88,11 +88,11 @@ inicio_streamingg(Streaming,Liga,HayPartidos):-
     validar_streaming(Streaming,Liga,HayPartidos).
 
 validar_streaming(Streaming,Liga,1):- partidos_hoy(Streaming,_,Equipo,_,_),equipo_es_de(Equipo,liga_es_de(Liga,_)).
-validar_streaming(_,_,0):- nl,write("No hay partidos hoy para esa Liga transmitidos por ese servicio de Streaming"),nl.
+validar_streaming(_,_,0):- nl,write("No hay partidos hoy para esa Liga transmitidos por ese servicio de Streaming, debe contratar otro que lo transmita"),nl.
 
 
 inicio_estadio_horario(1,HoraEstadioSiNo):-
-    nl,write("Quiere conecer ademas el estadio y el horario en el que se juega?"),nl,
+    nl,write("Quiere conecer ademas el estadio y el horario en el que se juega? [si/no]"),nl,
     read(Respuesta),
     validar_horaestadiosino(Respuesta,HoraEstadioSiNo).
 inicio_estadio_horario(0,_).
@@ -100,7 +100,7 @@ inicio_estadio_horario(0,_).
 validar_horaestadiosino('si', 1).
 validar_horaestadiosino('no', 0).
 validar_horaestadiosino(_,Respuesta):-
-    nl,write("No pude entenderte, Quiere conocer ademas el estadio y el horario en el que se juega? (si/no)"),nl,
+    nl,write("No pude entenderte, quiere conocer ademas el estadio y el horario en el que se juega? (si/no)"),nl,
     read(HoraEstadioSiNo),
     validar_horaestadiosino(HoraEstadioSiNo,Respuesta).
 
@@ -121,7 +121,7 @@ mostrar_hora_estadio(1,Hora, Estadio):-
 mostrar_hora_estadio(0,_,_).
 
 inicio_ultimos_campeones(Liga):-
-    nl,write("Te interesa ver los ultimos campeones de esa Liga?"),nl,
+    nl,write("Te interesa ver los ultimos campeones de esa Liga? [si/no]"),nl,
     read(OpcionCampeon),
     validar_opcioncampeon(Liga,OpcionCampeon).
 
@@ -136,7 +136,7 @@ campeones(Liga):-
     nl,write("Los ultimos campeones de la liga "),write(Liga),write(" son: "), nl,nl,
     abrir_base,
     mostrar_campeon_liga(Liga),
-    nl,write("Desea agregar algun otro equipo campeon para esta liga?"),nl,
+    nl,write("Desea agregar algun otro equipo campeon para esta liga? [si/no]"),nl,
     read(Respuesta),
     validar_agregarcampeon(Respuesta,Liga).
 
@@ -162,6 +162,6 @@ agregar_campeon(Liga):-
     read(Anio),
     assert(campeon_liga(Equipo, Liga, Anio)),
     guardar_base,
-    write("Desea agregar otro equipo campeon para esta liga?"),
+    write("Desea agregar otro equipo campeon para esta liga? [si/no]"),
     read(Respuesta),
     validar_agregarcampeon(Respuesta,Liga).
