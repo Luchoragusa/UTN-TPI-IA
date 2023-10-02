@@ -46,6 +46,8 @@ inicio_pais(PaisDevuelto):-
     abrir_base,
     validar_pais(PaisIngresado,PaisDevuelto).
 
+% Probar si puedo usar 1 sola variable de pais en lugar de 2
+
 validar_pais(PaisIngresado,PaisDevuelto):- equipo_es_de(_,liga_es_de(_,PaisIngresado)), PaisDevuelto = PaisIngresado.
 validar_pais(_,PaisDevuelto):-
     nl,write("El Pais ingresado no existe"),nl,
@@ -92,7 +94,7 @@ validar_streaming(_,_,0):- nl,write("No hay partidos hoy para esa Liga transmiti
 
 
 inicio_estadio_horario(1,HoraEstadioSiNo):-
-    nl,write("Quiere conecer ademas el estadio y el horario en el que se juega? [si/no]"),nl,
+    nl,write("Quiere conocer ademas el estadio y el horario en el que se juega? [si/no]"),nl,
     read(Respuesta),
     validar_horaestadiosino(Respuesta,HoraEstadioSiNo).
 inicio_estadio_horario(0,_).
